@@ -1,0 +1,53 @@
+import sys
+
+def isInt(val):
+    """ Validates the amount and elements of coins_list are of type integer or
+        not """
+    if type(val) is not int:
+        return False
+    elif val <= 0:
+        return False
+    return True
+
+def validation(coins_list):
+    """ Validates the coins_list is in decesding order or not """
+    for  i in range(len(coins_list)):
+        if isInt(coins_list[i]):
+            if i > 0 and coins_list[i-1] < coins_list[i]:
+                print "coins list is not sorted in descending order "               
+                return False
+        else:
+            print "Coin at index %s is %s is not Int" %(i,coins_list[i])
+      return False
+    return True
+
+def make_change(amount,coins_available):
+    """ Returns the change required for the given amount and coins_list """ 
+    output_list = []
+    temp = amount
+    for i in coins_available:
+        a = temp // i
+        b = a * i
+        temp = temp - b
+        output_list.append(a)
+    return output_list
+
+
+def main():
+    """ Take tw oinputs and prints change """
+    p = raw_input("enter amount:")
+    amount = eval(p)
+    if not isInt(amount):
+       print "Amount entered %s is wrong " %amount
+       return 
+    coins_list = raw_input("coins_List?")
+    coins_list = eval(coins_list)
+    flag = validation(coins_list)
+    if flag:
+        result = make_change(amount,coins_list)
+        print "Amount %s with coins_list %s , Change will be '%s'" %(amount, coins_list,result)
+	
+
+# Starting point of the program 
+if __name__ == '__main__':
+    main()
